@@ -3,6 +3,8 @@ A Python module designed to be able to encrypt almost any kind of data as easily
 
 It uses the cryptography module to provide you SHA256 encryption on your files with little to no intervention from you.
 
+This module is still experimental, if you find any bugs or find a way to make it better feel free to file an issue or a pull request!
+
 ## HOW TO USE:
 
 ### Import the class from the module
