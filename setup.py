@@ -8,7 +8,7 @@ setup(
   author = 'furankii',                   # Type in your name
   author_email = 'frank_rv@yahoo.com',      # Type in your E-Mail
   url = 'https://github.com/FrankR-7/Enkryptor',   # Provide either the link to your github or to your website
-  download_url = 'https://github.com/FrankR-7/Enkryptor/archive/v_01.tar.gz',    # I explain this later on
+  download_url = 'https://github.com/FrankR-7/Enkryptor/archive/refs/tags/v0.1.tar.gz',    # I explain this later on
   keywords = ['encryption', 'security', 'auth', 'authenthication'],   # Keywords that define your package best
   install_requires=[            # I get to this in a second
           'cryptography',
