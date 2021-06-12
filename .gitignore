@@ -2,3 +2,4 @@ venv/
 dist/
 MANIFEST
 __pycache__/
+*.egg-info/
