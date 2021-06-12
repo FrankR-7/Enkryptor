@@ -1,0 +1,9 @@
+--- V 0.1.1 ---
+- The Enkryptor class now accepts a file name and directory at the same time in the same parameter for file.
+- The Enkryptor class now accepts custom salt file names and saving directories.
+- Enkryptor no longer creates an empty .e file automatically, but you can toggle that on with the create_empty_file parameter
+- Enkryptor.password() now returns None when the encrypted file doesn't exist, this means that if you create an empty file it will return False. I don't plan on changing this in the near future.
+
+--- V 0.1 ---
+- First release of Enkryptor
+- Uses logging module instead of plain print() statements

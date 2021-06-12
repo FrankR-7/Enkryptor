@@ -6,8 +6,8 @@ A Python module designed to create files with encrypted data parsed in JSON.
 This module takes care about all of the encrypting and JSON parsing
 without much supervision from you.
 
-Made by Franklin Rosales
-This source code is available for everyone to use and/or modify.
+Made by furankii - Fr4nk23 on Twitter
+This source code is available for everyone to use and/or modify under the MIT license.
 """
 
 import json
@@ -27,30 +27,30 @@ class Enkryptor:
     NOTE: YOU MUST CALL PASSWORD() AT LEAST ONCE BEFORE CALLING ENKRYPTOR() OR DEKRYPTOR()
 
     > Arguments:
-        filename(string): (default: "enc.e")
-        A string containing the name of the file in which you want to store your data.
-        directory(string): (default: "")
-        A string with the path of your .e file if it's not in the current working directory.
-        If you give this variable a value, it's not necessary to pass [filename].
+        file(string): (default: "enc.e")
+        A string containing the name or path of the file in which you want to store your data.
+
+        salt(string): (default: "")
+        A string containing the name or path of the file in which you want to store your salt file.
+
+        create_empty_file(bool): (default: False)
+        A boolean determining if an empty .e file should be created right when the instance is called
+        if said file doesn't exist. If False, the file will be created when enkrypt() is called.
     """
 
-    def __init__(self, filename="enc.e", directory=""):
-        self.__file = filename
-        self.__cwd = Path.cwd()
-        self.__path = Path.joinpath(self.__cwd, self.__file)
-        self.__dir = Path(directory)
+    def __init__(self, file : str="enc.e", salt : str="salt.salt", create_empty_file : bool=False):
+        self.__path = Path(file)
+        self.__spath = Path(salt)
         self._salter()
-        if directory:
-            self.__path = self.__dir
         if not self.__path.is_file():
             logging.warning(
                 f"{self.__path} doesn't exist in this directory. A new file will be created.")
-            self.__path.touch()
+            if create_empty_file:
+                self.__path.touch()
         logging.info(f"[ENKRYPTOR] Enkryptor has been successfully initialised.\nWorking file: {self.__path}")
 
     def _salter(self):
-        self.__spath = Path.joinpath(self.__cwd, 'salt.salt')
-        if not self.__spath.exists():
+        if not self.__spath.is_file():
             logging.warning("Salt file doesn't exist. A new one will be created")
             self.__salt = os.urandom(16)
             with open(self.__spath, 'xb') as stream:
@@ -72,9 +72,6 @@ class Enkryptor:
         self.__encdata = self.__f.encrypt(self.__strdata)
         with open(self.__path, 'wb') as stream:
             stream.write(self.__encdata)
-            ret = 1
-
-        return ret
 
     def dekrypt(self):
         """
@@ -99,11 +96,9 @@ class Enkryptor:
         Returns:
         True if the password you entered was correct
         False if the password was incorrect
+        None if you are setting the password for the first time
         """
-        try:
-            self.__oldkey = self.__key
-        except:
-            pass
+
         __passw = password.encode()
         kdf = PBKDF2HMAC(
             algorithm=hashes.SHA256(),
@@ -114,11 +109,11 @@ class Enkryptor:
         )
         self.__key = base64.urlsafe_b64encode(kdf.derive(__passw))
         self.__f = Fernet(self.__key)
-        try:
-            self.dekrypt()
-        except:
-            if self.__oldkey:
-                self.__key = self.__oldkey
-            return False
+        if self.__path.is_file():
+            try:
+                self.dekrypt()
+                return True
+            except:
+                return False
         else:
-            return True
+            return None

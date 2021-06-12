@@ -1,1 +1,4 @@
-/venv
+venv/
+dist/
+MANIFEST
+__pycache__/
