@@ -11,9 +11,27 @@ It uses the cryptography module to provide you SHA256 encryption on your files w
 
 This is a newly made module, if you find any bugs or find a way to make it better feel free to file an issue or a pull request!
 
-## HOW TO USE:
----
+Also, this is a very simple setup text, more detailed documentation about the module coming soon.
 
+## HOW TO USE:
+
+### Installation
+
+Before you install Enkryptor, make sure you have `setuptools` up to date.
+
+> `pip install --upgrade setuptools`
+
+Then, in your terminal, do:
+
+> `pip install enkryptor`
+
+Obviously, depending on your os and python configuration, you may have to use a different command. If you have experience with python in said os you should already know what to do.
+
+**KNOWN ISSUE**
+
+Depending on your combination of hardware, software, and configuration, you may encounter issues installing `cryptography` through its wheels, requiring you to install the Rust language to build from source. I'm sorry to say that I can't do anything to address this issue apart from telling you to follow the instructions that appear on screen when the error shows up.
+
+---
 ### Import the class from the module
 
 > `from enkryptor import Enkryptor`
@@ -43,7 +61,7 @@ Again, the `.salt` extension isn't strictly necessary. If you don't specify the 
 
 > `enc.password("yourpass")`
 
-Replace `yourpass` with a password, as a string. This function returns true or false depending if the password was correct or incorrect. (This feature is experimental)
+Replace `yourpass` with a password, as a string. This function returns either true or false depending on if the password was correct or incorrect, or None if you haven't created an encrypted file yet.
 
 ### Encrypt your data
 
