@@ -1,5 +1,5 @@
 ﻿cffi==1.14.0
-cryptography==3.3.2
+cryptography==39.0.1
 pathlib==1.0.1
 pycparser==2.20
 six==1.15.0
